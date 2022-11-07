@@ -6,7 +6,7 @@ const config = require('./config/config');
 
 const url = config.bd_string;
 const options = { wtimeoutMS: 2500, maxPoolSize: 5 };
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 9000;
 
 mongoose.connect(url, options);
 //mongoose.set('useNewUrlParser', true);
