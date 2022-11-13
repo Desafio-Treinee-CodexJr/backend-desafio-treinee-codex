@@ -8,6 +8,7 @@ const url = config.bd_string;
 const options = { wtimeoutMS: 2500, maxPoolSize: 5 };
 const port = process.env.PORT || 9000;
 
+console.log(`Iniciando a API em env ${process.env.NODE_ENV.toUpperCase()}`);
 mongoose.connect(url, options);
 //mongoose.set('useNewUrlParser', true);
 
