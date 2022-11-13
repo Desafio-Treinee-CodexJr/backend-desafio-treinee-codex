@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const config = require('./config/config');
+const cors = require('cors');
 
 const url = config.bd_string;
 const options = { wtimeoutMS: 2500, maxPoolSize: 5 };
@@ -27,6 +28,7 @@ mongoose.connection.on('connected', () => {
 //BODY PARSER
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const indexRoute = require('./Routes/index');
 const usersRoute = require('./Routes/users');
