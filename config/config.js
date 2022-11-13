@@ -1,31 +1,29 @@
-// process.env.NODE_ENV ||
-const env = 'dev';
+require('dotenv').config()
 
 const config = () => {
+    let env = process.env.NODE_ENV;
     switch (env) {
         case 'dev':
         return {
-            bd_string: 'mongodb+srv://gutocz:qdLWpvhGJ21z2COJ@cluster0.ibkdcv8.mongodb.net/?retryWrites=true&w=majority',
-            jwt_pass: 'senha',
+            bd_string: process.env.URL_DB_DEV,
+            jwt_pass: process.env.JWT_PASSWORD_DEV,
             jwt_expires_in: '7d'
-        }
+        };
 
         case 'hml':
         return {
-            bd_string: 'mongodb+srv://gutocz:qdLWpvhGJ21z2COJ@cluster0.ibkdcv8.mongodb.net/?retryWrites=true&w=majority',
-            jwt_pass: 'senha',
+            bd_string: process.env.URL_DB_PROD,
+            jwt_pass: process.env.JWT_PASSWORD_PROD,
             jwt_expires_in: '7d'
-        }
+        };
 
         case 'prod':
         return {
-            bd_string: 'mongodb+srv://gutocz:qdLWpvhGJ21z2COJ@cluster0.ibkdcv8.mongodb.net/?retryWrites=true&w=majority',
-            jwt_pass: '89832749&@#*&shjdfgbjds',
+            bd_string: process.env.URL_DB_PROD,
+            jwt_pass: process.env.JWT_PASSWORD_PROD,
             jwt_expires_in: '7d'
-        }
-    }
-}
-
-console.log(`Iniciando a API em ambiente ${env.toUpperCase()}`);
+        };
+    };
+};
 
 module.exports = config();
