@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 router.post('/create', async (req, res) => {
     const { email, password, name, gender, age } = req.body;
     
-    if (!email || !password || !name || !sobrenome || !gender || !age) return res.status(400).send({ error: 'Dados insuficientes!' });
+    if (!email || !password || !name || !gender || !age) return res.status(400).send({ error: 'Dados insuficientes!' });
 
     try {
         if (await Users.findOne({ email })) return res.status(400).send({ error: 'Usuário já registrado!' });
