@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    const { email, password, name, sobrenome, gender, age } = req.body;
+    const { email, password, name, gender, age } = req.body;
     
     if (!email || !password || !name || !sobrenome || !gender || !age) return res.status(400).send({ error: 'Dados insuficientes!' });
 
