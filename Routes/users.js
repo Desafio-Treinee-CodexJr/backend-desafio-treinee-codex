@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Users = require('../model/user');
+const Users = require('../model/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
@@ -25,8 +25,8 @@ router.post('/create', async (req, res) => {
     
     if (!email || !password || !name || !gender || !age) return res.status(400).send({ error: 'Dados insuficientes!' });
 
-/*     try { */
-    if (await Users.findOne({ email })) return res.status(400).send({ error: 'Usuário já registrado!' })/* ;
+    try {
+        if (await Users.findOne({ email })) return res.status(400).send({ error: 'Usuário já registrado!' });
 
         const user = await Users.create(req.body);
         user.password = undefined;
@@ -34,7 +34,7 @@ router.post('/create', async (req, res) => {
     }
     catch (err) {
         return res.status(500).send({ error: 'Erro ao buscar usuário!' });
-    } */
+    }
 });
 
 router.post('/auth', async (req, res) => {
