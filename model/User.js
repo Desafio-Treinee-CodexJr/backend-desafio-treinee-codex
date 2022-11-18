@@ -8,7 +8,9 @@ const UserSchema = new Schema({
     name: {type: String, required: true},
     gender: {type: String, required: true},
     age: {type: Number, required: true},
-    created: {type: Date, default: Date.now}
+    created: {type: Date, default: Date.now},
+    tasks: {type: [Object], default: []},
+    count: {type: Number, default: 0}
 });
 
 UserSchema.pre('save', async function(next) {
