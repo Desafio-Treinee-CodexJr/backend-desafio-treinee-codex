@@ -10,7 +10,8 @@ const UserSchema = new Schema({
     age: {type: Number, required: true},
     created: {type: Date, default: Date.now},
     tasks: {type: [Object], default: []},
-    count: {type: Number, default: 0}
+    count: {type: Number, default: 0},
+    photo: {type: String, default: 'https://www.casadatelha.com.br/wp-content/uploads/default-profile-picture1.jpg'}
 });
 
 UserSchema.pre('save', async function(next) {
