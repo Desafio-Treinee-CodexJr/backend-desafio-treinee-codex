@@ -96,4 +96,28 @@ router.put('/task', auth, async (req, res) => {
     return res.status(201).send({ tasks: user.tasks })
 });
 
+router.put('/task/text', auth, async (req, res) => {
+    const { id, text } = req.body
+    const _id = req.user._id;
+
+    let tasks = req.user.tasks
+    let attTasks = []
+
+    tasks.forEach(task => {
+        if (task.id === id) {
+            task.text = text
+            attTasks.push(task)
+        }
+        else {
+            attTasks.push(task)
+        };
+    });
+
+    await Users.findOneAndUpdate({ _id }, { tasks: attTasks });
+
+    let user = await Users.findById({ _id })
+    
+    return res.status(201).send({ tasks: user.tasks })
+});
+
 module.exports = router;
