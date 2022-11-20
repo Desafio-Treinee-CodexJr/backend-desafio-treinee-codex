@@ -4,20 +4,27 @@ const Users = require('../model/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+const auth = require('../middlewares/auth');
 
 //FUNÇÕES AUXLIARES
 const createUserToken = (userId) => {
     return jwt.sign({ id: userId }, config.jwt_pass, { expiresIn: config.jwt_expires_in });
 }
 
-router.get('/', async (req, res) => {
-    try {
-        const users = await Users.find({});
-        return res.send(users);
-    }
-    catch (err) {
-        return res.status(500).send({ error: 'Erro na consulta usuários!' });
-    }
+router.get('/info', auth, async (req, res) => {
+    let _id = req.user.id;
+    const users = await Users.findById({ _id: _id });
+    return res.send(users); 
+});
+
+router.put('/info', auth, async (req, res) => {
+    const { name, age, photo } = req.body;
+
+    const _id = req.user.id;
+    let user = await Users.findByIdAndUpdate({ _id: _id }, { name, age, photo });
+    user = await Users.findById({ _id })
+    
+    return res.send(user); 
 });
 
 router.post('/create', async (req, res) => {
