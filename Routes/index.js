@@ -47,6 +47,29 @@ router.post('/task', auth, async (req, res) => {
 
 router.get('/task', auth, async (req, res) => {
     return res.status(201).send({ tasks: req.user.tasks })
-})
+});
+
+router.delete('/task', auth, async (req, res) => {
+    const { id }  = req.body;
+
+    try {
+        let tasks = req.user.tasks
+        let filteredTasks = []
+        
+        tasks.forEach(task => {
+            if (task.id !== id) filteredTasks.push(task)
+        })
+    
+        const _id = req.user._id;
+        await Users.findOneAndUpdate({ _id }, { tasks: filteredTasks } );
+        
+        let user = await Users.findById({ _id })
+    
+        return res.status(201).send({ tasks: user.tasks })
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro ao deletar task!' });
+    }
+});
 
 module.exports = router;
